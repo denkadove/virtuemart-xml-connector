@@ -18,7 +18,8 @@
             $productList = [];
             $config = new Config();
             $companyName = $config->companyName;
-            if ($rout == 'avito' || $rout == 'ya_market' || $rout == 'facebook'|| $rout == '2gis') {
+            if ($rout == 'avito' || $rout == 'ya_market' || $rout == 'ya_webmaster' || $rout == 'facebook'|| $rout ==
+                '2gis') {
                 $productList = $this->model->getProductList('PR');
             } else {
                 $productList = $this->model->getProductList('all');
@@ -31,6 +32,8 @@
                 require ('templates/google.php');
             } elseif ($rout === 'ya_market' || $rout == 'ya_business') {
                 require ('templates/ya_market.php');
+            } elseif ($rout === 'ya_webmaster') {
+                require ('templates/ya_webmaster.php');
             } elseif ($rout === '2gis') {
                 require ('templates/2gis.php');
             }
