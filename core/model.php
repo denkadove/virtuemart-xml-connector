@@ -159,9 +159,9 @@
                 $custom_field_name = $row['custom_title'];
                 $custom_field_value = $row['customfield_value'];
                 if (array_key_exists($custom_field_name, $language_items)) {
-                    $result .= "<br>" . $language_items[$custom_field_name] . ' ' . $custom_field_value . "</br>";
+                    $result .= "<br>" . $language_items[$custom_field_name] . ' ' . $custom_field_value . "; </br>";
                 } else {
-                    $result .= "<br>" . $custom_field_name . ' ' . $custom_field_value . "</br>";;
+                    $result .= "<br>" . $custom_field_name . ' ' . $custom_field_value . "; </br>";;
                 }
             }
             return $result;
