@@ -54,6 +54,7 @@
 
             if ($product['mf_name']) {
                 $xml .= '<vendor>'.htmlspecialchars($product['mf_name']).'</vendor>'."\n";
+                $product_name = str_replace($product['mf_name'], '', $product_name);
                 $xml .= '<model>'.$product_name.'</model>'."\n";
             } else {
                 $xml .= '<name>'.$product_name.'</name>'."\n";
@@ -73,9 +74,6 @@
     $xml .= '</shop>'."\n";
     $xml .= '</yml_catalog>';
 
-    $xml_file = fopen('xml/ya_market.xml', 'w+');
-    ftruncate($xml_file, 0);
-    fwrite($xml_file, $xml);
-    fclose($xml_file);
-
+    $xml_file = 'xml/ya_market.xml';
+    file_put_contents($xml_file, $xml);
     echo $this->model->outputDataType(FILE, 'ya_market.xml', SITE, $xml);
