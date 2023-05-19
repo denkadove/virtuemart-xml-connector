@@ -25,3 +25,5 @@
             82 => ["category" => "category", "goodsType" => "goodsType"],
         ];
     }
+
+
