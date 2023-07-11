@@ -64,10 +64,10 @@
             $language_items = parse_ini_file($local_lang_ini_path);
             foreach ($productList as $key => $product) {
                 $productID = $product['virtuemart_product_id'];
-                $productList[$key]['medias'] = self::getImages($productID);
-                $productList[$key]['customfields'] = self::getCustomFields($productID, $language_items);
+                $productList[$key]['medias'] = self::getImages((string)$productID);
+                $productList[$key]['customfields'] = self::getCustomFields((string)$productID, $language_items);
                 if ($product['product_canon_category_id'] != NULL ){
-                    $productList[$key]['canonical_url'] = self::getProductCanonicalUrl($product['product_canon_category_id'], $product['slug']);
+                    $productList[$key]['canonical_url'] = self::getProductCanonicalUrl((string)$product['product_canon_category_id'], $product['slug']);
                 } else {
                     $productList[$key]['canonical_url'] = '0';
                 }
