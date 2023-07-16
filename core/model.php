@@ -66,6 +66,7 @@
                 $productID = $product['virtuemart_product_id'];
                 $productList[$key]['medias'] = self::getImages((string)$productID);
                 $productList[$key]['customfields'] = self::getCustomFields((string)$productID, $language_items);
+                $productList[$key]['params']= self::getParams((string)$productID, $language_items);;
                 if ($product['product_canon_category_id'] != NULL ){
                     $productList[$key]['canonical_url'] = self::getProductCanonicalUrl((string)$product['product_canon_category_id'], $product['slug']);
                 } else {
@@ -162,6 +163,23 @@
                     $result .= "<br>" . $language_items[$custom_field_name] . ' ' . $custom_field_value . "; </br>";
                 } else {
                     $result .= "<br>" . $custom_field_name . ' ' . $custom_field_value . "; </br>";;
+                }
+            }
+            return $result;
+        }
+
+        public function getParams(string $product_id, array $language_items): string {
+            $db = self::getDBconnect();
+            $query = 'SELECT a.`virtuemart_customfield_id`, a.`virtuemart_custom_id`, a.`customfield_value`, b.`custom_title` FROM '.$db['table_prefix'].'virtuemart_product_customfields a RIGHT JOIN '.$db['table_prefix'].'virtuemart_customs b ON a.`virtuemart_custom_id` = b.`virtuemart_custom_id` WHERE `virtuemart_product_id` ='.$product_id.' AND a.`virtuemart_custom_id` NOT IN ('. NOT_USED_CUSTOM_FIELDS .');';
+            $rows = $this->getDBinfo($query);
+            $result = '';
+            foreach ($rows as $row) {
+                $custom_field_name = $row['custom_title'];
+                $custom_field_value = $row['customfield_value'];
+                if (array_key_exists($custom_field_name, $language_items)) {
+                    $result .= str_replace(':','','<param name="' . rtim($language_items[$custom_field_name]) . '">' . rtim($custom_field_value) . "</param>");
+                } else {
+                    $result .=  str_replace(':','','<param name="' . rtrim($custom_field_name) . '">' . rtrim($custom_field_value) . "</param>");
                 }
             }
             return $result;

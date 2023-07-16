@@ -61,11 +61,13 @@
             }
 
            $xml .= '<vendorCode>'.htmlspecialchars($product['product_sku']).'</vendorCode>';
-
             if ($product['product_desc']) {
-                $xml .= '<description>'."\n".htmlspecialchars(mb_substr(strip_tags($product['product_desc']) , 0,
-                        4500))."\n". strip_tags($product['customfields']) .'</description>'."\n";
+                $xml .= '<description>'."\n".htmlspecialchars(mb_substr(strip_tags($product['product_desc']) , 0, 4500))."\n".'</description>'."\n";
+            } else {
+                $xml .= '<description>' . $product_name . '</description>';
             }
+
+            $xml .= $product['params'];
             $xml .= '</offer>'."\n";
         }
     }
